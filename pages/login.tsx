@@ -3,8 +3,8 @@ import axios, { AxiosResponse } from "axios";
 import type { NextPage } from "next";
 import styled from "styled-components";
 import Login from "../components/Login";
-import { internalAxiosInstance } from "./constant";
-import { LoginInput, LoginOutput } from "./interface/Login";
+import internalAxiosInstance from "../constant/internalAxiosInstance";
+import { LoginInput, LoginOutput } from "../interface/Login";
 
 const LoginCol: React.FunctionComponent<ColProps> = styled(Col)`
   display: flex;
@@ -15,12 +15,12 @@ const LoginContainer: React.FunctionComponent<RowProps> = styled(Row)`
 `;
 
 const Home: NextPage = () => {
-  const onSubmit = (value: LoginInput) => {
-    internalAxiosInstance
-      .post<LoginInput, AxiosResponse<LoginOutput>>("/login", value)
-      .then((value) => {
-        console.log(value.data);
-      });
+  const onSubmit = async (value: LoginInput) => {
+    const token = await internalAxiosInstance.post<LoginOutput, LoginOutput>(
+      "/login",
+      value
+    );
+    localStorage.setItem("token", token.accessToken);
   };
 
   return (

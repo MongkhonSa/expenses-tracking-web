@@ -1,14 +1,12 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import type { NextApiRequest, NextApiResponse } from 'next'
+import type { NextApiRequest, NextApiResponse } from "next";
+import { LoginOutput } from "../../interface/Login";
+import { loginService } from "../../service/login.service";
 
-type Data = {
-  name: string
-}
-
-export default function handler(
+export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Data>
+  res: NextApiResponse<LoginOutput>
 ) {
-
-  res.status(200).json({ name: 'John Doe' })
+  const response = await loginService(req.body);
+  res.status(response.status).json(response.data);
 }
