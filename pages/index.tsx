@@ -1,10 +1,14 @@
-import type { NextPage } from 'next'
-import Login from '../components/Login'
+import { Col, Row } from "antd";
+import type { NextPage } from "next";
+import { Fragment } from "react";
+import Login from "../components/Login";
 
 const Home: NextPage = () => {
   return (
-  <Login/>
-  )
-}
+    <Row justify="center">
+      <Col></Col>
+    </Row>
+  );
+};
 
-export default Home
+export default Home;
