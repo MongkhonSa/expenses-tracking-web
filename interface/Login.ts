@@ -5,7 +5,3 @@ export type LoginInput = {
 export type LoginOutput = {
   accessToken: string;
 };
-
-export type LoginHeader = {
-  Authorization: string;
-};

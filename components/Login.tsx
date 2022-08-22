@@ -1,7 +1,6 @@
 import Icon from "@ant-design/icons/lib/components/Icon";
-import { Button, Checkbox, Form as FormAntd, Input } from "antd";
+import { Button, Form as FormAntd, Input } from "antd";
 import styled from "styled-components";
-import { LoginInput } from "../interface/Login";
 
 const Form = styled(FormAntd)`
   max-width: 300px;

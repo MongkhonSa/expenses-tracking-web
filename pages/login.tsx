@@ -1,6 +1,6 @@
 import { Col, ColProps, Row, RowProps } from "antd";
-import axios, { AxiosResponse } from "axios";
 import type { NextPage } from "next";
+import { useRouter } from "next/router";
 import styled from "styled-components";
 import Login from "../components/Login";
 import internalAxiosInstance from "../constant/internalAxiosInstance";
@@ -15,12 +15,14 @@ const LoginContainer: React.FunctionComponent<RowProps> = styled(Row)`
 `;
 
 const Home: NextPage = () => {
+  const router = useRouter();
   const onSubmit = async (value: LoginInput) => {
-    const token = await internalAxiosInstance.post<LoginOutput, LoginOutput>(
-      "/login",
-      value
-    );
-    localStorage.setItem("token", token.accessToken);
+    internalAxiosInstance
+      .post<LoginOutput, LoginOutput>("/login", value)
+      .then((token) => {
+        localStorage.setItem("token", token.accessToken);
+        router.push("/");
+      });
   };
 
   return (

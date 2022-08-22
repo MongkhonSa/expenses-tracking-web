@@ -8,7 +8,7 @@ internalAxiosInstance.interceptors.response.use(
   (res) => res.data,
   (err) => {
     if (err.response.status === 401) {
-      localStorage.removeItem("token");
+      localStorage.clear();
     }
     throw { ...err.response, message: err.message };
   }
