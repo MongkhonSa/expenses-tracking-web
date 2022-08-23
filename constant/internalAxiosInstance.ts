@@ -11,7 +11,8 @@ internalAxiosInstance.interceptors.response.use(
       localStorage.clear();
       window.location.href = "http://localhost:3000/login";
     }
-    return { ...err.response, message: err.message };
+
+    return Promise.reject(err);
   }
 );
 export default internalAxiosInstance;
