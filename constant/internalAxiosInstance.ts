@@ -10,7 +10,7 @@ internalAxiosInstance.interceptors.response.use(
     if (err.response.status === 401) {
       localStorage.clear();
     }
-    throw { ...err.response, message: err.message };
+    return { ...err.response, message: err.message };
   }
 );
 export default internalAxiosInstance;
