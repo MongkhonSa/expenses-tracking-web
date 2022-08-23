@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import styled from "styled-components";
 import Login from "../components/Login";
 import internalAxiosInstance from "../constant/internalAxiosInstance";
-import { LoginInput, LoginOutput } from "../interface/Login";
+import { LoginInput, LoginOutput } from "../interface/login";
 
 const LoginCol: React.FunctionComponent<ColProps> = styled(Col)`
   display: flex;
@@ -14,7 +14,7 @@ const LoginContainer: React.FunctionComponent<RowProps> = styled(Row)`
   height: 100vh;
 `;
 
-const Home: NextPage = () => {
+const LoginPage: NextPage = () => {
   const router = useRouter();
   const onSubmit = async (value: LoginInput) => {
     internalAxiosInstance
@@ -22,16 +22,19 @@ const Home: NextPage = () => {
       .then((token) => {
         localStorage.setItem("token", token.accessToken);
         router.push("/");
+      })
+      .catch(() => {
+        alert("Invalid username or password");
       });
   };
 
   return (
     <LoginContainer>
       <LoginCol>
-        <Login onSubmit={onSubmit} />
+        <Login onSubmit={onSubmit} isRegister />
       </LoginCol>
     </LoginContainer>
   );
 };
 
-export default Home;
+export default LoginPage;

@@ -2,7 +2,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { ErrorType } from "../../interface/error-type";
 import { LoginOutput } from "../../interface/login";
-import { loginService } from "../../service";
+import { registerService } from "../../service";
 import errorParser from "../../utils/error-parser";
 
 export default async function handler(
@@ -10,8 +10,8 @@ export default async function handler(
   res: NextApiResponse<LoginOutput | ErrorType>
 ) {
   try {
-    const response = await loginService(req.body);
-    res.status(200).json(response);
+    await registerService(req.body);
+    res.status(201).end();
   } catch (err) {
     const parseError = errorParser(err);
     return res.status(parseError.status).send(parseError);
