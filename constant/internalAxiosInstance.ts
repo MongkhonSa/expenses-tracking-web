@@ -9,6 +9,7 @@ internalAxiosInstance.interceptors.response.use(
   (err) => {
     if (err.response.status === 401) {
       localStorage.clear();
+      window.location.href = "http://localhost:3000/login";
     }
     return { ...err.response, message: err.message };
   }
