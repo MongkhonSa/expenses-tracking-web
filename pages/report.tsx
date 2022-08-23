@@ -1,10 +1,17 @@
 import { Col, DatePicker, Row, Radio, Select } from "antd";
-import dayjs, { Dayjs } from "dayjs";
+import dayjs from "dayjs";
 import type { NextPage } from "next";
 import { Fragment, useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
+import SummaryTable from "../components/SummaryTable";
 import internalAxiosInstance from "../constant/internalAxiosInstance";
 import { TransactionReportOutputDto } from "../interface/transaction";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
+// set thai time zone
+dayjs.extend(utc);
+dayjs.extend(timezone);
+dayjs.tz.setDefault("Asia/Bangkok");
 
 const { Option } = Select;
 type datePickerType = "date" | "week" | "month";
@@ -17,7 +24,7 @@ const ReportPage: NextPage = () => {
     dayjs().endOf("date").toISOString()
   );
   const [type, setType] = useState<String>("income");
-  const [report, setReport] = useState<TransactionReportOutputDto>();
+  const [report, setReport] = useState<TransactionReportOutputDto[]>();
   const onDateChange = (date: any) => {
     setStartDate(dayjs(date).startOf(picker).toISOString());
     setEndDate(dayjs(date).endOf(picker).toISOString());
@@ -28,7 +35,7 @@ const ReportPage: NextPage = () => {
 
   useEffect(() => {
     internalAxiosInstance
-      .post<TransactionReportOutputDto, TransactionReportOutputDto>(
+      .post<TransactionReportOutputDto[], TransactionReportOutputDto[]>(
         "/income-and-expenses-account/report",
         {
           startDate,
@@ -80,6 +87,11 @@ const ReportPage: NextPage = () => {
               <Radio value="expenses">expenses</Radio>
             </Row>
           </Radio.Group>
+        </Col>
+      </Row>
+      <Row justify="center">
+        <Col span={20}>
+          <SummaryTable dataSource={report} />
         </Col>
       </Row>
     </Fragment>
