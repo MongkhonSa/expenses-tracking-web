@@ -3,7 +3,10 @@ import externalAxiosInstance from "./constant/externalAxiosInstance";
 import { IGetIncomeAndExpensesAccountOutputType } from "./interface/income-and-expenses-account";
 
 import { LoginInput, LoginOutput } from "./interface/login";
-import { Transaction } from "./interface/transaction";
+import {
+  Transaction,
+  TransactionReportInputDto,
+} from "./interface/transaction";
 
 export const loginService = (loginInput: LoginInput) => {
   return externalAxiosInstance.post<LoginOutput, LoginOutput>(
@@ -30,6 +33,21 @@ export const createIncomeService = (
   return externalAxiosInstance.post<Transaction, Transaction>(
     "/income-and-expenses-account/income",
     transaction,
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `${accessToken}`,
+      },
+    }
+  );
+};
+export const getReportService = (
+  transactionReportInputDto: TransactionReportInputDto,
+  accessToken?: string
+) => {
+  return externalAxiosInstance.post<Transaction, Transaction>(
+    "/income-and-expenses-account/report",
+    transactionReportInputDto,
     {
       headers: {
         "Content-Type": "application/json",

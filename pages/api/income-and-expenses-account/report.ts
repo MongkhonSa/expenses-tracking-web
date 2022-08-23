@@ -2,7 +2,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { ErrorType } from "../../../interface/error-type";
 import { Transaction } from "../../../interface/transaction";
-import { createIncomeService } from "../../../service";
+import { getReportService } from "../../../service";
 import errorParser from "../../../utils/error-parser";
 
 export default async function handler(
@@ -10,7 +10,7 @@ export default async function handler(
   res: NextApiResponse<Transaction | ErrorType>
 ) {
   try {
-    const response = await createIncomeService(
+    const response = await getReportService(
       req.body,
       req.headers["authorization"]
     );

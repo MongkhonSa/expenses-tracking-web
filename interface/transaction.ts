@@ -4,3 +4,12 @@ export type Transaction = {
   amount: number;
   image?: string;
 };
+export type TransactionReportInputDto = {
+  type: string;
+  startDate: string;
+  endDate: string;
+};
+export type TransactionReportOutputDto = {
+  categoryName: string;
+  total: string;
+};
