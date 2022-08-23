@@ -1,5 +1,7 @@
 import Icon from "@ant-design/icons/lib/components/Icon";
-import { Button, Form as FormAntd, Input } from "antd";
+import { Button as ButtonAntd, Form as FormAntd, Input } from "antd";
+import Link from "next/link";
+import { Fragment } from "react";
 import styled from "styled-components";
 
 const Form = styled(FormAntd)`
@@ -8,15 +10,26 @@ const Form = styled(FormAntd)`
   flex-direction: column;
   justify-content: center;
 `;
+
+const Button = styled(ButtonAntd)`
+  width: 100%;
+`;
 type LoginProps = {
   onSubmit: (loginInput: any) => void;
+  submitText?: string;
+  isRegister?: boolean;
+  registerText?: string;
 };
 
-const Login = ({ onSubmit }: LoginProps) => {
+const LoginForm = ({
+  onSubmit,
+  submitText = "Login",
+  isRegister = false,
+  registerText = "register now!",
+}: LoginProps) => {
   return (
     <Form onFinish={onSubmit}>
       <Form.Item
-        label="Username"
         name="username"
         rules={[
           {
@@ -28,7 +41,6 @@ const Login = ({ onSubmit }: LoginProps) => {
         <Input placeholder="Username" />
       </Form.Item>
       <Form.Item
-        label="Password"
         name="password"
         rules={[
           {
@@ -37,20 +49,20 @@ const Login = ({ onSubmit }: LoginProps) => {
           },
         ]}
       >
-        <Input.Password />
+        <Input.Password placeholder="Password" />
       </Form.Item>
-      <Form.Item
-        wrapperCol={{
-          offset: 8,
-          span: 16,
-        }}
-      >
+      <Form.Item>
         <Button type="primary" htmlType="submit">
-          Submit
+          {submitText}
         </Button>
+        {isRegister && (
+          <Fragment>
+            Or <Link href="/register">{registerText}</Link>
+          </Fragment>
+        )}
       </Form.Item>
     </Form>
   );
 };
 
-export default Login;
+export default LoginForm;

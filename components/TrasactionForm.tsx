@@ -1,5 +1,5 @@
 import Icon from "@ant-design/icons/lib/components/Icon";
-import { Button, Form as FormAntd, Input, Radio, Row } from "antd";
+import { Button, Form as FormAntd, Input, InputNumber, Radio, Row } from "antd";
 import styled from "styled-components";
 import { UploadOutlined } from "@ant-design/icons";
 import { useEffect, useState } from "react";
@@ -21,15 +21,21 @@ type LoginProps = {
 const TrasactionForm = ({ onSubmit }: LoginProps) => {
   const [token, setToken] = useState<string>();
   const [progress, setProgress] = useState(0);
-  const [file, setFile] = useState<string>();
+  const [image, setImage] = useState<string>();
+  const [form] = Form.useForm();
 
+  const submitFormHandle = (value: any) => {
+    onSubmit(value);
+    form.resetFields();
+  };
   useEffect(() => {
     setToken(localStorage.getItem("token") || "");
   });
 
   return (
     <Form
-      onFinish={onSubmit}
+      form={form}
+      onFinish={submitFormHandle}
       labelCol={{
         span: 8,
       }}
@@ -59,7 +65,7 @@ const TrasactionForm = ({ onSubmit }: LoginProps) => {
           },
         ]}
       >
-        <Input placeholder="amount" />
+        <InputNumber placeholder="amount" min={0} />
       </Form.Item>
       <Form.Item
         label="Type"
@@ -67,7 +73,7 @@ const TrasactionForm = ({ onSubmit }: LoginProps) => {
         rules={[
           {
             required: true,
-            message: "Please input your amount",
+            message: "Please select your type",
           },
         ]}
       >
@@ -80,7 +86,7 @@ const TrasactionForm = ({ onSubmit }: LoginProps) => {
       </Form.Item>
       <Form.Item label="Upload bill" name="file">
         <Upload
-          onRemove={() => setFile(undefined)}
+          onRemove={() => setImage("")}
           customRequest={async ({ onSuccess, onError, file, onProgress }) => {
             const form = new FormData();
             form.append("file", file);
@@ -108,15 +114,14 @@ const TrasactionForm = ({ onSubmit }: LoginProps) => {
                   },
                 }
               );
-              setFile(data.path);
-              onSuccess && onSuccess("Ok");
+
+              onSuccess && onSuccess(data.path);
             } catch (err) {
-              console.log("Error: ", err);
               const error = new Error("Some error");
             }
           }}
         >
-          <Button disabled={!!file} icon={<UploadOutlined />}>
+          <Button disabled={!!image} icon={<UploadOutlined />}>
             Click to Upload
           </Button>
         </Upload>
