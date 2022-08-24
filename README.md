@@ -1,8 +1,8 @@
 ## Required
 
-node 12.0.0+
+- node 12.0.0+
 
-npm 7.0.0+
+- npm 7.0.0+
 
 ## 1. Install the package
 
