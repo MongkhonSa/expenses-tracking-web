@@ -51,6 +51,9 @@ const TrasactionForm = ({ onSubmit }: LoginProps) => {
             required: true,
             message: "Please input your category name!",
           },
+          {
+            max: 20,
+          },
         ]}
       >
         <Input placeholder="Category name" />
@@ -86,6 +89,14 @@ const TrasactionForm = ({ onSubmit }: LoginProps) => {
       </Form.Item>
       <Form.Item label="Upload bill" name="file">
         <Upload
+          accept="image/*"
+          beforeUpload={(file) => {
+            const isLt5M = file.size / 1024 / 1024 < 5;
+            if (!isLt5M) {
+              alert("Image must smaller than 5MB!");
+            }
+            return isLt5M;
+          }}
           onRemove={() => setImage("")}
           customRequest={async ({ onSuccess, onError, file, onProgress }) => {
             const form = new FormData();
@@ -117,7 +128,7 @@ const TrasactionForm = ({ onSubmit }: LoginProps) => {
 
               onSuccess && onSuccess(data.path);
             } catch (err) {
-              const error = new Error("Some error");
+              onError && onError(err as any);
             }
           }}
         >
