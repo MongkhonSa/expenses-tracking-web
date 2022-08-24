@@ -30,7 +30,7 @@ const TrasactionForm = ({ onSubmit }: LoginProps) => {
   };
   useEffect(() => {
     setToken(localStorage.getItem("token") || "");
-  });
+  }, []);
 
   return (
     <Form
