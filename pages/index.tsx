@@ -3,7 +3,7 @@ import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import { Fragment, useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
-import TrasactionForm from "../components/TrasactionForm";
+import TrasactionForm from "../components/TransactionForm";
 
 import WithAuth from "../components/WithAuth";
 import internalAxiosInstance from "../constant/internalAxiosInstance";
@@ -36,7 +36,6 @@ const Home: NextPage = () => {
 
   const onSubmit = async (value: any) => {
     const { categoryName, amount, type, file } = value;
-    console.log(value);
     internalAxiosInstance
       .post<Transaction, Transaction>(
         `/income-and-expenses-account/${type}`,

@@ -1,4 +1,3 @@
-import Icon from "@ant-design/icons/lib/components/Icon";
 import { Button, Form as FormAntd, Input, InputNumber, Radio, Row } from "antd";
 import styled from "styled-components";
 import { UploadOutlined } from "@ant-design/icons";
@@ -89,6 +88,7 @@ const TrasactionForm = ({ onSubmit }: LoginProps) => {
       </Form.Item>
       <Form.Item label="Upload bill" name="file">
         <Upload
+          data-testId="upload-button"
           accept="image/*"
           beforeUpload={(file) => {
             const isLt5M = file.size / 1024 / 1024 < 5;
@@ -110,22 +110,9 @@ const TrasactionForm = ({ onSubmit }: LoginProps) => {
                     authorization: `Bearer ${token}`,
                     "Content-Type": "multipart/form-data",
                   },
-                  onUploadProgress: (event) => {
-                    const percent = Math.floor(
-                      (event.loaded / event.total) * 100
-                    );
-                    setProgress(percent);
-                    if (percent === 100) {
-                      setTimeout(() => setProgress(0), 1000);
-                    }
-                    onProgress &&
-                      onProgress({
-                        percent: (event.loaded / event.total) * 100,
-                      });
-                  },
                 }
               );
-
+              setImage(data.path);
               onSuccess && onSuccess(data.path);
             } catch (err) {
               onError && onError(err as any);
