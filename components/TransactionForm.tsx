@@ -2,7 +2,6 @@ import { Button, Form as FormAntd, Input, InputNumber, Radio, Row } from "antd";
 import styled from "styled-components";
 import { UploadOutlined } from "@ant-design/icons";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import Upload from "antd/lib/upload/Upload";
 import externalAxiosInstance from "../constant/externalAxiosInstance";
 import { UploadSucess } from "../interface/income-and-expenses-account";
@@ -19,7 +18,6 @@ type LoginProps = {
 
 const TrasactionForm = ({ onSubmit }: LoginProps) => {
   const [token, setToken] = useState<string>();
-  const [progress, setProgress] = useState(0);
   const [image, setImage] = useState<string>();
   const [form] = Form.useForm();
 
@@ -86,9 +84,9 @@ const TrasactionForm = ({ onSubmit }: LoginProps) => {
           </Row>
         </Radio.Group>
       </Form.Item>
-      <Form.Item label="Upload bill" name="file">
+      <Form.Item label="Upload bill" name="file" valuePropName="fieList">
         <Upload
-          data-testId="upload-button"
+          data-testid="upload-button"
           accept="image/*"
           beforeUpload={(file) => {
             const isLt5M = file.size / 1024 / 1024 < 5;

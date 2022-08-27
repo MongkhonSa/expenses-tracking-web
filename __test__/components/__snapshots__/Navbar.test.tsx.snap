@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Navbar renders Navbar unchanged 1`] = `
+<div>
+  <div
+    class="ant-row ant-row-end"
+  >
+    <div
+      class="ant-col sc-724045b4-0"
+    >
+      <button
+        class="ant-btn ant-btn-default"
+        type="button"
+      >
+        <a
+          href="/"
+        >
+          Home
+        </a>
+      </button>
+    </div>
+    <div
+      class="ant-col sc-724045b4-0"
+    >
+      <button
+        class="ant-btn ant-btn-default"
+        type="button"
+      >
+        <a
+          href="/report"
+        >
+          Report
+        </a>
+      </button>
+    </div>
+    <div
+      class="ant-col sc-724045b4-0"
+    >
+      <button
+        class="ant-btn ant-btn-default"
+        type="button"
+      >
+        <h4>
+          logout
+        </h4>
+      </button>
+    </div>
+  </div>
+</div>
+`;
