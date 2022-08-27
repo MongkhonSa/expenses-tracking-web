@@ -1,18 +1,12 @@
 import axios from "axios";
+import { resHandler, internalErrorHandler } from "./handler";
 
 const internalAxiosInstance = axios.create({
   baseURL: "/api",
 });
 
 internalAxiosInstance.interceptors.response.use(
-  (res) => res.data,
-  (err) => {
-    if (err.response.status === 401) {
-      localStorage.clear();
-      window.location.href = "http://localhost:3000/login";
-    }
-
-    return Promise.reject(err);
-  }
+  resHandler,
+  internalErrorHandler
 );
 export default internalAxiosInstance;
