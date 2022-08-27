@@ -8,6 +8,7 @@ import internalAxiosInstance from "../constant/internalAxiosInstance";
 import { TransactionReportOutputDto } from "../interface/transaction";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
+
 // set thai time zone
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -64,6 +65,7 @@ const ReportPage: NextPage = () => {
       <Row>
         <Col span={6} offset={2}>
           <Select
+            date-testid="select-type"
             style={{ width: "100%" }}
             defaultValue="date"
             onChange={setPicker}
@@ -75,13 +77,18 @@ const ReportPage: NextPage = () => {
         </Col>
         <Col span={6} offset={1}>
           <DatePicker
+            data-testid="date-pick-test"
             style={{ width: "100%" }}
             picker={picker}
             onChange={onDateChange}
           />
         </Col>
         <Col span={6} offset={1}>
-          <Radio.Group onChange={onTypeChange} defaultValue="income">
+          <Radio.Group
+            onChange={onTypeChange}
+            defaultValue="income"
+            data-testid="type-group"
+          >
             <Row>
               <Radio value="income">income</Radio>
               <Radio value="expenses">expenses</Radio>

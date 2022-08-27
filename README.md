@@ -12,7 +12,17 @@ npm install
 yarn  install
 ```
 
-## 2. Build Package (for production server)
+## 2. Test
+
+```bash
+npm run test
+```
+
+```bash
+npm run test:coverage
+```
+
+## 3. Build Package (for production server)
 
 ```bash
 npm run build
@@ -20,7 +30,7 @@ npm run build
 yarn build
 ```
 
-## 3. Getting Started
+## 4. Getting Started
 
 run the development server:
 

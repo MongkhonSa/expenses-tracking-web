@@ -1,17 +1,14 @@
 import { Col, Row } from "antd";
 import type { NextPage } from "next";
-import { useRouter } from "next/router";
 import { Fragment, useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import TrasactionForm from "../components/TransactionForm";
-
 import WithAuth from "../components/WithAuth";
 import internalAxiosInstance from "../constant/internalAxiosInstance";
 import { IGetIncomeAndExpensesAccountOutputType } from "../interface/income-and-expenses-account";
 import { Transaction } from "../interface/transaction";
-import { getIncomeAndExpensesAccount } from "../service";
 
-const Home: NextPage = () => {
+export const Home: NextPage = () => {
   const [incomeAndExpensesAccount, setIncomeAndExpensesAccount] =
     useState<IGetIncomeAndExpensesAccountOutputType>();
 
